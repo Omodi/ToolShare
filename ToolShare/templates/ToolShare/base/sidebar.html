@@ -1,0 +1,17 @@
+ <div id="sidebar-fixed" class="sidebar well hidden-print hidden-sm hidden-xs" role="complementary" data-offset-top="51px" data-spy="affix">
+    <ul class="nav">
+        <li><a href="{% url "ToolShare:ToolRegister"%}">Register A Tool</a></li>
+        <li><a href="{% url "ToolShare:CommunityShedRegistration" %}">Create a Shed</a></li>
+        {% if user.is_staff %}
+        <hr style="border-color: #B30000">
+        <li><a href="/admin">Administer the Database</a></li>
+        {% endif %}
+    </ul>
+</div>
+
+ <div class="sidebar well hidden-print visible-sm visible-xs" role="complementary">
+    <ul class="nav">
+        <li><a href="{% url "ToolShare:ToolRegister"%}">Register A Tool</a></li>
+        <li><a href="{% url "ToolShare:CommunityShedRegistration" %}">Create a Shed</a></li>
+    </ul>
+</div>

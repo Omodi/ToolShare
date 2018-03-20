@@ -1,0 +1,24 @@
+{% extends "ToolShare/base/base_sidebar.html" %}
+
+{% block title %}ToolShare | Tool Search Results{% endblock %}
+
+{% block content %}
+<div class="row">
+    <h1 class="col-md-7">Search Results</h1>
+    <form action="{% url "ToolShare:ToolSearchResults" %}" method="get" class="col-md-5">
+        <div class="input-group">
+            <input type="text" class="form-control" name="q" placeholder="Search..." value="{{q}}">
+            <div class="input-group-btn">
+                <input type="submit" class="btn btn-primary" value="Search">
+            </div>
+        </div>
+    </form>
+</div>
+
+{% if success %}<p class="alert alert-success">{{success}}</p>{% endif %}
+{% if error %}<p class="alert alert-danger">{{error}}</p>{% endif %}
+
+
+{% include "ToolShare/components/tool_list.html" %}
+
+{% endblock content %}

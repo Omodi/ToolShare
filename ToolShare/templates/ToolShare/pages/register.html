@@ -1,0 +1,39 @@
+{% extends "ToolShare/base/base_nosidebar.html" %}
+
+{% block title %}ToolShare | Login{% endblock %}
+
+{% block content %}
+<h1>Register</h1>
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        {% if error %}<p class="alert alert-danger">{{error}}</p>{% endif %}
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{name}}" autofocus>
+            <p class="help-block">What would you like to be known as on ToolShare? Please use a full name.</p>
+        </div>
+        <div class="form-group">
+            <label for="">Email Address</label>
+            <input type="text" class="form-control" id="name" name="email" value="{{email}}">
+            <p class="help-block">Where can other ToolShare members contact you?</p>
+        </div>
+        <div class="form-group">
+            <label for="">Zipcode</label>
+            <input type="text" class="form-control" id="name" name="zipcode" value="{{zipcode}}">
+            <p class="help-block">Each zipcode is it's own community of ToolShare users. Only people in your zipcode will see your profile.</p>
+        </div>
+        <div class="form-group">
+            <label for="">Password</label>
+            <input type="password" class="form-control" id="name" name="password">
+            <p class="help-block">We recommend creating a password with at least eight characters. Passwords are case sensitive.</p>
+        </div>
+        <div class="form-group">
+            <label for="">Confirm Password</label>
+            <input type="password" class="form-control" id="name" name="password2">
+            <p class="help-block"></p>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Register">
+    </div>
+</form>
+{% endblock content %}

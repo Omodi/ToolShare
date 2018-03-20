@@ -1,0 +1,11 @@
+{% extends "ToolShare/base/base_sidebar.html" %}
+
+{% block title %}ToolShare | My Sheds{% endblock %}
+
+{% block content %}
+{% if error %}<p class="alert alert-danger">{{error}}</p>{% endif %}
+
+
+{% include "ToolShare/components/shed_list.html" %}
+
+{% endblock content %}

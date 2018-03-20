@@ -1,0 +1,23 @@
+{% load static %}
+{% static 'ToolShare/image/shed_no_img.png' as no_image %}
+<section>
+    {% if error %}<p class="alert alert-danger">{{error}}</p>{% endif %}
+    {% for shed in sheds %}
+    <div class = "well">
+        <div class="row">
+            <img src="{{no_image}}" class="col-md-2 col-sm-2"></img>
+            <div class="col-md-6">
+                <h3 style="margin-top: 0px; padding-top: 0px;"> {{shed.name}} </h3>
+                <p>
+                    Coordinated by {{shed.coordinator.profile.name}}
+                </p>
+            </div>
+            <div class="col-md-2 col-md-offset-2">
+                <div class="btn-group-vertical" style="width: 100%;">
+                    <a href="{% url "ToolShare:CommunityShedToolListandProfile" shedId=shed.id %}" style="width:100%;" class="btn btn-default">Shed Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</section>

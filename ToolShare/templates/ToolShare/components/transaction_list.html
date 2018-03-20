@@ -1,0 +1,33 @@
+{% load static %}
+{% static 'ToolShare/image/no_image_t.png' as no_image %}
+{% load humanize %}
+{% for trans in transactions %}
+<div class="panel panel-default col-md-3">
+  <div class="panel-heading">
+    <a href="{% url "ToolShare:IndividualToolDetail" toolId=trans.tool.id %}"><h3 class="panel-title">{{ trans.tool.name }}</h3></a>
+  </div>
+  <div class="panel-body">
+     <div style="min-height:70px;">
+    {% if trans.rating != 0 %}
+        {% if trans.rating < 0%}
+            <a href="{% url "ToolShare:UserProfile" uid=trans.tool.owner.id %}" style="font-size: 46px; text-align: center; display: block;">{{trans.rating}}</a>
+        {% else %}
+            <a href="{% url "ToolShare:UserProfile" uid=trans.tool.owner.id %}" style="font-size: 46px; text-align: center; display: block;">+{{trans.rating}}</a>
+        {% endif %}
+    {% else %}
+        {% if trans.tool.owner == user %}
+            <p style="text-align: center;">
+            <a href="{% url "ToolShare:NegativeRating" tId=trans.id uId=trans.holder.id %}"><span class="glyphicon glyphicon-minus pull-left"></span></a>
+            How'd it go?
+            <a href="{% url "ToolShare:PositiveRating" tId=trans.id uId=trans.holder.id %}"><span class="glyphicon glyphicon-plus pull-right"></span></a>
+            </p>
+        {% else %}
+            <a href="{% url "ToolShare:UserProfile" uid=trans.tool.owner.id %}">{{ trans.tool.owner.profile.name }}</a> has yet to rate this transaction.
+        {% endif %}    
+    {% endif %}
+    </div>
+    <img src="{{no_image}}" style="width: 100%;"></img>
+    <span class="badge pull-right">{{trans.time|naturalday|capfirst}}</span>
+  </div>
+</div>
+{% endfor %}

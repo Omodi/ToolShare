@@ -1,0 +1,15 @@
+{% extends "ToolShare/base/base_sidebar.html" %}
+
+{% block title %}Datepicker Demo{% endblock %}
+
+{% block content %}
+
+{% with "dp1" as dpid %}
+{% include "ToolShare/components/datepicker.html" %}
+{% endwith %}
+
+{% with "dp2" as dpid %}
+{% include "ToolShare/components/datepicker.html" %}
+{% endwith %}
+
+{% endblock content %}

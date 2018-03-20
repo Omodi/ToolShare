@@ -1,0 +1,29 @@
+{% extends "ToolShare/base/base_sidebar.html" %}
+
+{% block title %}ToolShare | Tool Registration{% endblock %}
+
+{% block content %}
+<h1>Tool Register</h1>
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        {% if error %}<p class="alert alert-danger">{{error}}</p>{% endif %}
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{name}}">
+            <p class="help-block">What is your tool called?</p>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" id="description" name="description" value="{{description}}">
+            <p class="help-block">How would you describe your tool?</p>
+        </div>
+        <div class="form-group">
+            <label for="tags">Tags</label>
+            <input type="text" class="form-control" id="tags" name="tags" value="{{tags}}">
+            <p class="help-block">(Optional) List keywords here to help people find your tool. Put a space between each keyword.</p>
+        </div>
+        <input type="submit" class="btn btn-default" value="Register Tool">
+    </div>
+</form>
+{% endblock content %}

@@ -1,0 +1,41 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>{% block title %}ToolShare{% endblock %}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static "ToolShare/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="{% static "ToolShare/css/base.css" %}">
+
+</head>
+<body>
+
+    {% include "ToolShare/base/nav.html" %}
+
+    <div class="container">
+        <div class="row">
+            {% block fullcenter %}
+            <div id="content" class="col-md-9">
+            {% endblock fullcenter %}
+                {% block content %}{% endblock %}
+            </div>
+            {% block sidebar %}
+            <div class="col-md-3">
+                {% include "ToolShare/base/sidebar.html" %}
+            </div>
+            {% endblock sidebar %}
+        </div>
+    </div>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script src="{% static "ToolShare/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "ToolShare/js/base.js" %}"></script>
+
+</body>
+</html>

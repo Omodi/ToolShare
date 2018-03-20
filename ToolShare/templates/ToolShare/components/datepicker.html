@@ -1,0 +1,11 @@
+<script>
+if (!window.blacklistedDays) window.blacklistedDays = {};
+window.blacklistedDays["{{ dpid }}"] = [
+    {% for r in reservations %}
+    ["{{r.start_date.month}}/{{r.start_date.day}}/{{r.start_date.year}}", "{{r.end_date.month}}/{{r.end_date.day}}/{{r.end_date.year}}"],
+    {% endfor %}
+];
+</script>
+<input type="hidden" name="startDate" id="{{ dpid }}StartDay" value="{{ initial_date }}" />
+<input type="hidden" name="endDate" id="{{ dpid }}EndDay" />
+<div id="{{ dpid }}" class="datepicker"></div>

@@ -1,0 +1,115 @@
+/***************
+ * BASE STYLES *
+ ***************/
+
+body {
+    margin-top: 70px;
+}
+
+#notifications-button {
+    position: relative;
+}
+#notifications-badge {
+    display: inline-block;
+    position: absolute;
+    bottom: -3px;
+    right: -3px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: red;
+    color: #DDD;
+    font-size: 13px;
+    text-align: center;
+    line-height: 15px;
+}
+.navbar-form {
+    padding: 0 inherit;
+}
+
+section > h1 {
+    margin-top: 0;
+}
+
+aside > h1 {
+    margin-top: 0;
+    font-size: 24px;
+}
+aside > h2 {
+    font-size: 18px;
+}
+
+#notifications {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/******************
+ * ELEMENT STYLES *
+ ******************/
+
+a:link:not(.btn), a:active:not(.btn), a:visited:not(.btn) {
+    color: #B30000;
+}
+
+a:hover:not(.btn) {
+    color: #DB0000;
+}
+
+form {
+    max-width: 400px;
+    margin-top: 20px;
+}
+form.no-style {
+    display: inline;
+    max-width: none;
+    margin: inherit;
+}
+
+#sidebar-login-form .form-control {
+    position: relative;
+}
+#sidebar-login-form .form-control:focus {
+    z-index: 2;
+}
+#sidebar-login-form .form-control:first-child {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-bottom: -1px;
+}
+#sidebar-login-form .form-control:nth-child(2) {
+    border-radius: 0;
+    margin-bottom: -1px;
+}
+#sidebar-login-form .form-control:last-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+/***********************
+ * BOOTSTRAP OVERRIDES *
+ ***********************/
+
+.navbar-default .navbar-text {
+    color: white;
+}
+.navbar-text a {
+    color: #FFB96C !important;
+}
+.navbar-default .navbar-brand {
+    color: #FFFFFF !important;
+}
+
+.well, .jumbotron {
+    background: #F5DBA3;
+}
+
+/*********************
+ * DATEPICKER STYLES *
+ *********************/
+
+.dp-highlight .ui-state-default {
+    background: #484;
+    color: #FFF !important;
+}

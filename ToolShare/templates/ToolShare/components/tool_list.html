@@ -1,0 +1,53 @@
+
+{% load static %}
+{% static 'ToolShare/image/no_image_t.png' as no_image %}
+
+<div id="tool-list-{{includeCount|default:0}}" class="tool-list">
+    {% if tools %}
+    <p class="text-right">
+        <a href="#show{{includeCount|default:0}}">Show All</a> | <a href="#hide{{includeCount|default:0}}">Hide All</a>
+    </p>
+    {% endif %}
+    {% for tool in tools %}
+    <div class="well">
+        <div class="row" style="padding-bottom: 10px;">
+            <h3 class="col-md-8" style="margin-top: 0px; padding-top: 0px;">{{tool.name}}</h3>
+            <div class="col-md-4 text-right">
+                <button class="toggle-btn btn btn-default" data-toggle="collapse" data-target="#toolDetail{{forloop.counter0}}-{{includeCount|default:0}}">Show</button>
+            </div>
+        </div>
+        <div id="toolDetail{{forloop.counter0}}-{{includeCount|default:0}}" class="toolDetail{{includeCount|default:0}} row collapse" style="padding: 0 15px">
+            <img src="{{no_image}}" class="col-md-2"></img>
+            <div class="col-md-6">
+                <p>{{tool.description|truncatechars:25}}</p>
+                <p>
+                    Owned by  <a href="{% url "ToolShare:UserProfile" uid=tool.owner.id %}">{{tool.owner.profile.name}}</a><br>
+                    {% if tool.in_shed %}
+                        Current Share Location: <a href="{% url "ToolShare:CommunityShedToolListandProfile" shedId=tool.sharelocation.id %}">{{tool.shareLocation}}</a><br>
+                    {% else %}
+                        Current Share Location: <a href="{% url "ToolShare:UserProfile" uid=tool.sharelocation.id %}">{{tool.shareLocation}}</a><br>
+                    {% endif %}
+                    {% if tool.current_holder.coordinator %}
+                        Current Holder: <a href="{% url "ToolShare:CommunityShedToolListandProfile" shedId=tool.holder.id %}">{{tool.current_holder}}</a>
+                    {% else %}
+                        Current Holder: <a href="{% url "ToolShare:UserProfile" uid=tool.holder.id %}">{{tool.current_holder}}</a>
+                    {% endif %}
+                </p>
+                <div class="btn-group">
+                {% for tag in tool.popular_tags.all %}
+                    {% if tag.slug|length > 0 %}
+                    <a href="{% url "ToolShare:ToolSearchResults" %}?q={{tag.slug}}"><button class="btn btn-default btn-xs">{{tag.slug}}</button></a>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-3 col-md-offset-1" style="padding-right: 0px;">
+                <div class="btn-group-vertical" style="width: 100%;">
+                    <a href="{% url "ToolShare:IndividualToolDetail" toolId=tool.id %}" style="width:100%;" class="btn btn-default">See Detail</a>
+                    <a href="{% url "ToolShare:UserProfile" uid=tool.owner.id %}" style="width:100%;" class="btn btn-default">Owner Detail</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>

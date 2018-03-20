@@ -1,0 +1,21 @@
+{% extends "ToolShare/base/base_sidebar.html" %}
+
+{% block title %}Form Test{% endblock %}
+
+{% block content %}
+
+<p>
+    Hello, {{ name|default:"Some name" }}!
+</p>
+
+<form action="" method="post" class="confirm" data-message="Are you sure you want to submit the name &quot;%name%&quot;?">
+    {% csrf_token %}
+    <input type="text" class="form-control" style="display: inline; width: 300px;" name="name" placeholder="{{ name }}">
+    <input type="submit" class="btn btn-large" value="Set name">
+</form>
+
+<p>
+    <a href="#otherpage" class="confirm" data-message="Are you sure you want to click this?">Go to some place</a>
+</p>
+
+{% endblock content %}

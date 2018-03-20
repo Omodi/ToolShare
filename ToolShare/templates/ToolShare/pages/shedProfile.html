@@ -1,0 +1,44 @@
+{% extends "ToolShare/base/base_sidebar.html" %}
+
+{% block title %}ToolShare | {{name}}{% endblock %}
+
+{% block content %}
+
+{% if error %}<p class="alert alert-danger">{{error}}</p>{% endif %}
+
+<h1>
+    {{name}}
+    {% if user.id == coordinator.id %}
+    <small class="pull-right">
+        <a href="{% url "ToolShare:CommunityShedPreferences" shedId=shedId %}">Edit <small><span class="glyphicon glyphicon-pencil"></span></small></a>
+    </small>
+    {% elif invite_only and not membership %}
+        <a href="{% url "ToolShare:RequestToJoin" shedId=shedId %}" class="btn btn-primary pull-right">Request to Join</a>
+    {% endif %}
+</h1>
+{% if coordinator.id == user.id %}
+<p>
+</p>
+{% endif %}
+<p>Address: {{address}}</p>
+<p>Zipcode: {{zipcode}}</P>
+
+{% if tools and not invite_only %}
+{% with includeCount=0 %}
+{% include "ToolShare/components/tool_list.html" %}
+{% endwith %}
+{% elif invite_only and membership %}
+{% with includeCount=0 %}
+{% include "ToolShare/components/tool_list.html" %}
+{% endwith %}
+{% endif %}
+{% if not tools %}
+<div class="well">This shed currently has no available tools.</div>
+{% endif %}
+{% if users %}
+{% with includeCount=1 %}
+{% include "ToolShare/components/user_list.html" %}
+{% endwith %}	
+{% endif %}
+
+{% endblock content %}

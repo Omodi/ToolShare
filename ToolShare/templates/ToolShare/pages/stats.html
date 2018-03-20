@@ -1,0 +1,64 @@
+{% extends "ToolShare/base/base_sidebar.html" %}
+{% load static %}
+{% static 'ToolShare/image/shed_no_img.png' as shed_image %}
+{% static 'ToolShare/image/no_image_t.png' as tool_image %}
+
+
+{% block title %}Community Statistics{% endblock %}
+
+{% block content %}
+<h1>Community-Driven Statistics</h1>
+
+<center>
+<h3>{{user_count}} Users Have Signed Up</h3>
+<div class="progress">
+    <div class="progress-bar progress-bar-success" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: {{user_ratio|floatformat}}%">
+        <span class="sr-only">{{user_ratio|floatformat}}</span>
+    </div>
+    <div class="progress-bar progress-bar-warning" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: {{inverted_ratio|floatformat}}%">
+        <span class="sr-only">{{inverted_ratio|floatformat}}</span>
+    </div>
+</div>
+{{user_ratio|floatformat}}% of all ToolShare users ({{with_count}}) have registered tools.
+</center>
+
+<style>
+    .media-heading {
+        font-size: 100px;
+    }
+    .media-body {
+        font-size: 60px;
+    }
+</style>
+
+<div class="media">
+  <p class="pull-left">
+    <img class="media-object" src="/static/ToolShare/image/shed_no_img.png" alt="shed image">
+  </p>
+  <div class="media-body">
+    <h4 class="media-heading">{{shed_count}}</h4>
+    Sheds Made
+  </div>
+</div>
+
+<div class="media">
+  <p class="pull-right">
+    <img class="media-object" src="/static/ToolShare/image/no_image_t.png" alt="shed image">
+  </p>
+  <div class="media-body pull-right">
+    <h4 class="media-heading pull-right">{{tool_count}}</h4>
+    <br/>
+    Tools
+  </div>
+</div>
+
+<div class="media">
+  <p class="pull-left">
+    <img class="media-object" src="/static/ToolShare/image/no_image_t.png" alt="shed image">
+  </p>
+  <div class="media-body">
+    <h4 class="media-heading">{{transaction_count}}</h4>
+    Transactions
+  </div>
+</div>
+{% endblock content %}

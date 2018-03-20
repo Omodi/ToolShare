@@ -1,0 +1,44 @@
+{% extends "ToolShare/base/base_sidebar.html" %}
+
+{% block title %}ToolShare{% endblock %}
+
+{% block content %}
+
+{% if message %}
+    {% if message_class %}
+        <p class="alert alert-{{message_class}}">{{message}}</p>
+    {% else %}
+        <p class="alert alert-info">{{message}}</p>
+    {% endif %}
+{% endif %}
+<h1>Dashboard</h1>
+<h2>Recent Notifications</h2>
+{% if notifications %}
+    {% include 'ToolShare/components/notification_list.html' %}
+{% else %}
+    <section class="well">Sorry, you have no notifications at this time.</section>
+{% endif %}
+<h2>Tools Borrowed</h2>
+{% if toolsBorrowed %}
+    {% with tools=toolsBorrowed includeCount=0 %}
+    {% include 'ToolShare/components/tool_list.html' %}
+    {% endwith %}
+{% else %}
+    <section class="well">You currently have not borrowed any tools. Would you like to <a href="{% url "ToolShare:ToolSearchResults" %}">search for one</a>?</section>
+{% endif %}
+<h2>My Tools</h2>
+{% if tools %}
+    {% with includeCount=1 %}
+    {% include 'ToolShare/components/tool_list.html' %}
+    {% endwith %}
+{% else %}
+    <section class="well">You currently have no tools. Would you like to <a href="{% url "ToolShare:ToolRegister" %}">register one</a>?</section>
+{% endif %}
+<h2>My Sheds</h2>
+{% if sheds %}
+    {% include 'ToolShare/components/shed_list.html' %}
+{% else %}
+    <section class="well">You currently don't coordinate any sheds. Would you like to <a href="{% url "ToolShare:CommunityShedRegistration" %}">create one</a>?</section>
+{% endif %}
+
+{% endblock content %}

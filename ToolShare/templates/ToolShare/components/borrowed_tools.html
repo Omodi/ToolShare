@@ -1,0 +1,32 @@
+{% comment %}{% load static %}
+{% static 'ToolShare/image/no_image_t.png' as no_image %}
+<section>
+    {% for tool in toolsBorrowed %}
+    <div class = "well">
+        <div class="container" style="padding-right: 0px;">
+            <img src="{{no_image}}" class="col-md-2"></img>
+            <div class="col-md-6">
+                <h3 style="margin-top: 0px; padding-top: 0px;">{{tool.name}}</h3>
+                <p>{{tool.description}}</p>
+                <p>
+                    Owned by {{tool.owner.profile.name}}
+                </p>
+                <div class="btn-group">
+                {% for tag in tool.popular_tags.all %}
+                    {% if tag.slug|length > 0 %}
+                    <a href="{% url "ToolShare:ToolSearchResults" %}?q={{tag.slug}}"><button class="btn btn-default btn-xs">{{tag.slug}}</button></a>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-2 col-md-offset-2" style="padding-right: 0px;">
+                <div class="btn-group-vertical" style="width: 100%;">
+                    <a href="{% url "ToolShare:ReturnTool" toolId=tool.id %}" style="width:100%;" class="btn btn-primary">Return</a>
+                    <a href="{% url "ToolShare:IndividualToolDetail" toolId=tool.id %}" style="width:100%;" class="btn btn-default">See Detail</a>
+                    <a href="{% url "ToolShare:UserProfile" uid=tool.owner.id %}" style="width:100%;" class="btn btn-default">Owner Detail</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</section>{% endcomment %}

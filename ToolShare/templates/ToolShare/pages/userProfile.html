@@ -1,0 +1,32 @@
+{% extends "ToolShare/base/base_sidebar.html" %}
+
+{% block title %}ToolShare | {{profileUser.profile.name}}'s Profile{% endblock %}
+
+{% block content %}
+<h1>
+    {{profileUser.profile.name}}'s Profile
+    {% if user.id == profileUser.id %}
+    <small class="pull-right">
+        <a href="{% url "ToolShare:EditUserProfile" %}">Edit <small><span class="glyphicon glyphicon-pencil"></span></small></a>
+    </small>
+    {% endif %}
+</h1>
+<p>
+    Rating: {{rating}}<br>
+    Zip Code: {{profileUser.profile.zone}}<br>
+    {% if profileUser.profile.address %}
+    Address: {{profileUser.profile.address}}<br>
+    {% endif %}
+    Email: <a href="mailto:{{profileUser.username}}">{{profileUser.username}}</a><br/>
+    {% if profileUser.profile.method %}
+    Method of sharing: <small class="pull-right">How this user would like to be met when borrowed from</small>
+    <p>{% filter force_escape %}{{profileUser.profile.method}}{% endfilter %}</p> 
+    {% endif %}
+</p>
+{%if tools %}<h2>{{profileUser.profile.name}}'s Tools</h2>{% endif %}
+{% include "ToolShare/components/tool_list.html" %}
+{% if sheds %}<h2>{{profileUser.profile.name}}'s Sheds</h2>{% endif %}
+{% include 'ToolShare/components/shed_list.html' %}
+{%if transactions %}<h2>{{profileUser.profile.name}}'s Transactions</h2>{% endif %}
+{% include "ToolShare/components/transaction_list.html" %}
+{% endblock content %}

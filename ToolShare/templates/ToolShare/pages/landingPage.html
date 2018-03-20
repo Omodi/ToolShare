@@ -1,0 +1,39 @@
+{% extends "ToolShare/base/base_sidebar.html" %}
+
+{% block title %}ToolShare{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1>ToolShare</h1>
+    <p>ToolShare helps you do.</p>
+    <h2>ToolShare is convenient.</h2>
+    <p>ToolShare is here to make your life easier. Ever needed a 3/8ths in right-angle wrench and didn't have one on hand? ToolShare is here to help you find that wrench.</p>
+    <h2>ToolShare is simple.</h2>
+    <p>ToolShare's slick interface lets you look for nearby tools without getting in your way.</p>
+    <h2>ToolShare is at your disposal.</h2>
+    <p>ToolShare is here to help you build your communities. ToolShare should be as easy as asking your neighbour for a hammer.</p>
+    <a href="{% url "ToolShare:UserRegistration" %}" class="btn btn-primary btn-lg"><p>Start sharing today!</p></a>
+</div>
+{% endblock content %}
+
+{% block sidebar %}
+<div class="col-md-3">
+    <div id="sidebar" class="well hidden-print" role="complementary">
+        <p>Already have an account? Login!</p>
+        <form action="{% url "ToolShare:LogIn" %}" method="post" id="sidebar-login-form">
+            {% if success %}<p class="alert alert-success">{{success}}</p>{% endif %}
+            {% if error %}<p class="alert alert-danger">{{error}}</p>{% endif %}
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" class="form-control input-sm" id="email" name="email" placeholder="Email Address">
+                <input type="password" class="form-control input-sm" id="password" name="password" placeholder="Password">
+                <input type="submit" class="btn btn-primary form-control" value="Login">
+            </div>
+        </form>
+        <p>
+            Still need an account?<br>
+            <a href="{% url "ToolShare:UserRegistration" %}">Register now!</a>
+        </p>
+    </div>
+</div>
+{% endblock sidebar %}

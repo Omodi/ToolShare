@@ -1,0 +1,25 @@
+{% extends "ToolShare/base/base_sidebar.html" %}
+
+{% block title %}ToolShare | Private Shed Creation{% endblock %}
+
+{% block content %}
+<h1>Private Shed Creation</h1>
+<form action="" method="post">
+    {% if success %}<p class="alert alert-success">{{success}}</p>{% endif %}
+    {% if error %}<p class="alert alert-danger">{{error}}</p>{% endif %}
+    {% csrf_token %}
+    <div clas="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{name}}">
+    </div>
+    <div class="form-group">
+        <label for="address">Address</label>
+        <input type="text" class="form-control" id="address" name="address" value="{{address}}">
+    </div>
+    <div class="form=group">
+        <label for="searchable">"Do you want your shed to be searchable?"</label>
+        <input type="checkbox" class="form-control" id="searchable" name="searchable" value="{{searchable}}">
+    </div>
+    <input type="submit" class="btn btn-defau;t" value="Create Shed">
+</form>
+{% endblock content %}

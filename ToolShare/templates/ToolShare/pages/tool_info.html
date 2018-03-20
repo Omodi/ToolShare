@@ -1,0 +1,92 @@
+{% extends "ToolShare/base/base_sidebar.html" %}
+
+{% block content %}
+
+{% load static %}
+{% static 'ToolShare/image/no_image_t.png' as no_image %}
+
+<h1 style="padding-bottom: 10px;"> {{tool.name}} </h1>
+<div class="row">
+    <img src="{{no_image}}" class="col-md-2"></img>
+    <div class="col-md-6">
+        <p>{{tool.description}}</p>
+        <p>
+            Owned by  <a href="{% url "ToolShare:UserProfile" uid=tool.owner.id %}">{{tool.owner.profile.name}}</a><br>
+            {% if tool.in_shed %}
+                Current Share Location: <a href="{% url "ToolShare:CommunityShedToolListandProfile" shedId=tool.sharelocation.id %}">{{tool.shareLocation}}</a><br>
+            {% else %}
+                Current Share Location: <a href="{% url "ToolShare:UserProfile" uid=tool.sharelocation.id %}">{{tool.shareLocation}}</a><br>
+            {% endif %}
+            {% if tool.current_holder.coordinator %}
+                Current Holder: <a href="{% url "ToolShare:CommunityShedToolListandProfile" shedId=tool.holder.id %}">{{tool.current_holder}}</a>
+            {% else %}
+                Current Holder: <a href="{% url "ToolShare:UserProfile" uid=tool.holder.id %}">{{tool.current_holder}}</a>
+            {% endif %}
+        </p>
+        <div class="btn-group">
+        {% for tag in tool.popular_tags.all %}
+            {% if tag.slug|length > 0 %}
+            <a href="{% url "ToolShare:ToolSearchResults" %}?q={{ tag.slug }}" class="btn btn-default btn-xs">{{tag.slug}}</a>
+            {% endif %}
+        {% endfor %}
+        </div>
+    </div>
+    <div class="col-md-3 col-md-offset-1">
+        <div class="btn-group-vertical" style="width: 100%;">
+            {% if user.id != tool.owner.id %}
+                <a href="{% url "ToolShare:UserProfile" uid=tool.owner.id %}" class="btn btn-default">Owner Detail</a>
+            {% else %}
+                {% if curLoc != tool.owner %}
+                    <a href="{% url "ToolShare:MoveToolToOwner" toolId=tool.id shedId=curLoc.id %}" class="btn btn-warning confirm" data-message="Are you sure you want to move this tool home?">Move home</a>
+                {% else %}
+                    <a href="{% url "ToolShare:ShedSelection" toolId=tool.id %}" class="btn btn-warning">Move to Shed</a>
+                {% endif %}
+                <a href="{% url "ToolShare:RemoveTool" toolId=tool.id %}" class="btn btn-danger confirm" data-message="Are you sure you want to remove this tool?">Remove</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div class="well" style="margin-top: 30px;">
+    <div class="row">
+        <h2 class="col-md-12" style="margin-top: 0; text-align: center; color:;">
+            {% if user == tool.owner  %}
+                Select Blackout Dates
+            {% elif user == tool.holder %}
+                Tool Availability
+            {% else %}
+                Select Dates to Borrow
+            {% endif %}
+        </h2>
+    </div>
+    <div class="row">
+        <form action="{% url "ToolShare:ToolBorrowRequest" toolId=tool.id %}" method="post" class="no-style confirm" data-message="Are you sure you want to do this for the date range %startDate% - %endDate%?">
+        {% csrf_token %}
+            <div class="col-md-8">
+                        {% with dpid="dp" reservations=tool_reservations %}
+                        {% include "ToolShare/components/datepicker.html" %}
+                        {% endwith %}
+            </div>
+            <div class="col-md-3 col-md-offset-1" style="height: 234px;">
+                {% if user == tool.owner  %}
+                    <div style="width: 100%; position: absolute; top: 0; right: 15px; font-style: italic;">
+                        <p>Choose a date range to left, and click the button below to add blackout dates.</p>
+                        <p>These are dates where nobody can borrow the tool, and the tool will show up as unavailable.</p>
+                    </div>
+                    <input type="submit" style="width:100%; position: absolute; bottom: 0; right: 15px;" class="btn btn-primary" value="Add Blackout Dates">
+                {% elif user == tool.holder %}
+                    <div style="width: 100%; position: absolute; top: 0; right: 15px; font-style: italic;">
+                        <p>You are currently borrowing this tool. When you have returned it, click the Return button below.</p>
+                        <p>The calendar to the left shows the current availability of this tool.</p>
+                    </div>
+                    <a href="{% url "ToolShare:ReturnTool" toolId=tool.id %}" style="width:100%; position: absolute; bottom: 0; right: 15px;" class="btn btn-primary">Return</a>
+                {% else %}
+                    <div style="width: 100%; position: absolute; top: 0; right: 15px; font-style: italic;">
+                        <p>Choose a range of dates from the calendar on the left that you would like to borrow the tool for, then click Borrow.</p>
+                    </div>
+                    <input type="submit" style="width:100%; position: absolute; bottom: 0; right: 15px;" class="btn btn-primary" value="Borrow">
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,19 @@
+<section>
+    {% for notification in notifications %}
+    <div class = "well">
+        <div class="row">
+            <div class="col-md-8">
+                <p style="margin-top: 0px; padding-top: 0px;">{{notification.message}}</p>
+            </div>
+            <div class="col-md-4">
+                <div class="btn-group pull-right">
+                    {% if notification.approve_text %}
+                    <a href="{% url "ToolShare:DeleteNotification" nid=notification.id %}?next={{notification.shortcut}}" class="btn btn-default">{{notification.approve_text}}</a>
+                    {% endif %}
+                    <a href="{% url "ToolShare:DeleteNotification" nid=notification.id %}" class="btn btn-default">{{notification.deny_text}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</section>

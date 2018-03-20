@@ -1,0 +1,30 @@
+{% load static %}
+{% static 'ToolShare/image/user_image.png' as no_image %}
+<section id="tool-list-{{includeCount|default:0}}" class="tool-list">
+    {% if users %}
+    <p class="text-right">
+        <a href="#show{{includeCount|default:0}}">Show All</a> | <a href="#hide{{includeCount|default:0}}">Hide All</a>
+    </p>
+    {% endif %}
+    {% for user in users %}    
+    <div class="well">
+        <div class="row" style="padding-bottom: 10px;">
+            <h3 class="col-md-8" style="margin-top: 0px; padding-top: 0px;">{{user.profile.name}}</h3>
+            <div class="col-md-4 text-right">
+                <button class="toggle-btn btn btn-default" data-toggle="collapse" data-target="#toolDetail{{forloop.counter0}}-{{includeCount|default:0}}">Show</button>
+            </div>
+        </div>
+        <div id="toolDetail{{forloop.counter0}}-{{includeCount|default:0}}" class="toolDetail{{includeCount|default:0}} row collapse" style="padding: 0 15px">
+            <img src="{{no_image}}" class="col-md-2"></img>
+            <div class="col-md-6">
+                <p>{{user.profile.address|truncatechars:40}}</p>
+            </div>
+            <div class="col-md-3 col-md-offset-1" style="padding-right: 0px;">
+                <div class="btn-group-vertical" style="width: 100%;">
+                    <a href="{% url "ToolShare:UserProfile" uid=user.profile.id %}" style="width:100%;" class="btn btn-default">User Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</section>  
